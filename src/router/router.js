@@ -2,7 +2,7 @@ import React from 'react'
 import {Route} from 'react-router-dom'
 import Header from '../Header'
 import CompetitorList from '../Components/CompetitorList';
-import SearchByYear from '../Components/searchByYearName';
+import SearchByYearName from '../Components/searchByYearName';
 
 
 const ReactRouter = () => {
@@ -10,7 +10,7 @@ const ReactRouter = () => {
         <React.Fragment>
             <Header/>
             <Route exact path= "/" component= {CompetitorList}/>
-            <Route path="/getCruiseByYearCompetitor" component={SearchByYear}/>
+            <Route path="/getCruiseByYearCompetitor" component={SearchByYearName}/>
 
         </React.Fragment>
     )
