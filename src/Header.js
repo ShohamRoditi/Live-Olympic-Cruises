@@ -20,7 +20,7 @@ class Header extends Component {
         return(
             <div style ={this.header}>
                 <NavLink exact to={path} activeStyle={this.active}>
-                get All Cruises's Competitors
+                get All Cruises Competitors
                 </NavLink>
                 <NavLink  to={`${path}getCruiseByYearCompetitor`} activeStyle={this.active}>
                 Search Cruises Competitions By Year And Name 
