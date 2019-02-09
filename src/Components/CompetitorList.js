@@ -96,7 +96,7 @@ class CompetitorList extends Component {
             <p className="card-text">score: { item.score }</p>
             <p className="card-text">date: { item.date }</p>
             <p className="card-text">time: { item.time }</p>
-            <p className="card-text">Competitor's Details:</p>
+            <p className="card-text">Competitor Details:</p>
             <p className="card-text">country: {item.competitorDetail.country}</p>
             <p className="card-text">birth: {item.competitorDetail.birth}</p>
           </Competitor>
