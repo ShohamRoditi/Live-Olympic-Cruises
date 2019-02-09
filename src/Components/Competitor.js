@@ -20,7 +20,7 @@ class Competitor extends Component {
 
   save(event) {
     event.preventDefault() // to prevent the default behaviour/ functionality
-    console.log( this.state.id, this.score.value, this.time.value);
+    // console.log( this.props.index, this.score.value, this.time.value);
     this.props.onChange(this.props.index,this.score.value, this.time.value);
     this.setState({ editing: false }) 
   }

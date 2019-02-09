@@ -22,9 +22,6 @@ class SearchByYearName extends Component {
         e.preventDefault();
         var self = this;
         let paramsInBody = [`year=${self.state.year}&competitor=${self.state.competitor}`];
-        console.log(self.state.year)
-        console.log(self.state.competitor)
-        console.log(paramsInBody)
         const url = `https://olympic-live-game.herokuapp.com/getCruiseByYearCompetitor`;
         self.setState({olympicCompetitors: []});
 
@@ -72,7 +69,6 @@ class SearchByYearName extends Component {
 
     update(id, score, time) {
         let paramsInBody = [`score=${score}&time=${time}`];
-        console.log(paramsInBody);
         const url = 'https://olympic-live-game.herokuapp.com/cruise/' + id;
         fetch(url,{
           method:'POST',
@@ -108,7 +104,6 @@ class SearchByYearName extends Component {
             <div className="card-body">
               <Competitor
                 key={ `competitor${i}` } index={ item.id  } onChange={ this.update } >
-                { console.log("id" + item.id) }
                 <h5 className="card-title">{ item.competitor }</h5>
                 <p className="card-text">id: { item.id }</p>
                 <p className="card-text">score: { item.score }</p>
@@ -125,7 +120,7 @@ class SearchByYearName extends Component {
 
     // destructor + default values
     add({ event = null, id = null, competitorDetail = [{'country': 'default country', 'birdth': 'default birdth'}] , competitor = 'default competitor', score = 0 , date = 'default date', time = 'default time'}) {
-        console.log(event, id, competitorDetail, competitor, score, date, time)
+        // console.log(event, id, competitorDetail, competitor, score, date, time)
         this.setState(prevState => ({
         olympicCompetitors: [
             ...prevState.olympicCompetitors, {
