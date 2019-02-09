@@ -12,23 +12,20 @@ class Competitor extends Component {
     this.save = this.save.bind(this)
     this.renderForm = this.renderForm.bind(this)
     this.renderUI = this.renderUI.bind(this)
-
   }
 
   edit() {
     this.setState({ editing: true }) 
   }
 
- 
-  save(event, id) {
+  save(event) {
     event.preventDefault() // to prevent the default behaviour/ functionality
-    console.log("print");
     console.log( this.state.id, this.score.value, this.time.value);
     this.props.onChange(this.props.index,this.score.value, this.time.value);
     this.setState({ editing: false }) 
   }
 
-  renderForm(props) {
+  renderForm() {
     return (
       <div>
           <form onSubmit = {this.save}>
@@ -49,20 +46,12 @@ class Competitor extends Component {
     )
   }
 
- 
-
-  renderUI(props) {
+   renderUI() {
     return (
       <div className="competitor">
         <div>{this.props.children}</div>
         <span>
-          <button 
-            onClick={this.edit} 
-            className="btn btn-primary" 
-            style={{marginRight: '7px'}}
-          > 
-            <MdEdit />
-          </button>
+          <button onClick={this.edit} className="btn btn-primary" style={{marginRight: '7px'}}> <MdEdit /></button>
         </span>
       </div>
     );

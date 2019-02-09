@@ -15,8 +15,6 @@ class SearchByYearName extends Component {
         this.eachCompetitor = this.eachCompetitor.bind(this);
 
         this.state             = {
-           //year: null,
-           //competitor: null,
             olympicCompetitors : [] }
     }
 
@@ -40,18 +38,12 @@ class SearchByYearName extends Component {
             body:paramsInBody
         }).then(res => res.json())
                 .then(json => {
-                    // if(json.status  !== 200){
                           json.map(competitor => {
                             this.add({competitorDetail: competitor.competitorDetail, 
                               id: competitor.userId, competitor: competitor.competitor, 
                               score: competitor.score, date: competitor.date, time:competitor.time});
                              return 0;
                         }); 
-                    // }
-                    // else{
-                    //     console.log("eroor")
-                    //      alert(`Search failed.\nReason: ${json.Reason}`);
-                    // }
                 })       
     }
 
@@ -62,12 +54,12 @@ class SearchByYearName extends Component {
                 <form onSubmit = {self.getCompetitors}>
                     <h6>Please Enter The Following:</h6>
                     <label className = "SearchLabel">
-                        Year:
+                        Date:
                         <input required type = "text" name = "year" onChange = {self.handleYearChange}/>
                     </label>
 
                     <label className = "SearchLabel">
-                        Name:
+                        Competitor Name:
                         <input required type = "text" name = "Name" onChange = {self.handleNameChange}/>
                     </label>
 
@@ -79,26 +71,18 @@ class SearchByYearName extends Component {
     }
 
     update(id, score, time) {
-        console.log("update");
         let paramsInBody = [`score=${score}&time=${time}`];
         console.log(paramsInBody);
-        console.log(` Here ${this.state.id}`);
-    
-        console.log("id " + id);
         const url = 'https://olympic-live-game.herokuapp.com/cruise/' + id;
         fetch(url,{
           method:'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded',
-    
           },
           body:paramsInBody
         }).then( result => result.json())
           .then(json => {
-            console.log("checking")
-            console.log(JSON.stringify(json));
-            console.log(json.nModified);
             if(json.nModified === 1){
               this.setState(prevState => ({
               olympicCompetitors: prevState.olympicCompetitors.map(data => 
@@ -123,18 +107,14 @@ class SearchByYearName extends Component {
           <div key={ `container${i}` } className="card" style={{ width: '18rem', marginBottom: '7px' }} >
             <div className="card-body">
               <Competitor
-                // NOTE: No need this key here! read more: https://reactjs.org/docs/lists-and-keys.html#keys 
-                key={ `competitor${i}` } 
-                index={ item.id }
-                onChange={ this.update }
-              >
+                key={ `competitor${i}` } index={ item.id  } onChange={ this.update } >
                 { console.log("id" + item.id) }
                 <h5 className="card-title">{ item.competitor }</h5>
                 <p className="card-text">id: { item.id }</p>
                 <p className="card-text">score: { item.score }</p>
                 <p className="card-text">date: { item.date }</p>
                 <p className="card-text">time: { item.time }</p>
-                <p className="card-text">Competitors:</p>
+                <p className="card-text">Competitor's Details:</p>
                 <p className="card-text">country: {item.competitorDetail.country}</p>
                 <p className="card-text">birth: {item.competitorDetail.birth}</p>
               </Competitor>
@@ -164,7 +144,6 @@ class SearchByYearName extends Component {
         return ++max;
     }
 
-    
     handleYearChange(e){
         this.setState({
             year: e.target.value
@@ -176,7 +155,6 @@ class SearchByYearName extends Component {
             competitor: e.target.value
         })
     }
-    
     
     render(){
         return this.renderForm();

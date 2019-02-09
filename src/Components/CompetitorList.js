@@ -13,16 +13,16 @@ class CompetitorList extends Component {
     this.update = this.update.bind(this)
     this.add = this.add.bind(this)
     this.nextID = this.nextID.bind(this)
-    // this.componentDidMount = this.componentDidMount(this)
   }
 
   componentDidMount() { 
+    var self = this;
     const url = 'https://olympic-live-game.herokuapp.com/cruises'; 
     fetch(url)
       .then(res => res.json())
         .then(data => {
             data.map(competitor => {
-              this.add({competitorDetail: competitor.competitorDetail, 
+              self.add({competitorDetail: competitor.competitorDetail, 
                 id: competitor.userId, competitor: competitor.competitor, 
                 score: competitor.score, date: competitor.date, time:competitor.time});
                return 0;
@@ -31,12 +31,8 @@ class CompetitorList extends Component {
    }
 
   update(id, score, time) {
-    console.log("update");
     let paramsInBody = [`score=${score}&time=${time}`];
     console.log(paramsInBody);
-    console.log(` Here ${this.state.id}`);
-
-    console.log("id " + id);
     const url = 'https://olympic-live-game.herokuapp.com/cruise/' + id;
     fetch(url,{
       method:'POST',
@@ -48,9 +44,6 @@ class CompetitorList extends Component {
       body:paramsInBody
     }).then( result => result.json())
       .then(json => {
-        console.log("checking")
-        console.log(JSON.stringify(json));
-        console.log(json.nModified);
         if(json.nModified === 1){
           this.setState(prevState => ({
           olympicCompetitors: prevState.olympicCompetitors.map(data => 
@@ -93,25 +86,17 @@ class CompetitorList extends Component {
 
   eachCompetitor(item, i) {
     return (
-      <div
-        key={ `container${i}` }
-        className="card"
-        style={ { width: '18rem', marginBottom: '7px' } }
-      >
+      <div key={ `container${i}` } className="card" style={ { width: '18rem', marginBottom: '7px' } } >
         <div className="card-body">
-          <Competitor            // NOTE: No need this key here! read more: https://reactjs.org/docs/lists-and-keys.html#keys 
-            key={ `competitor${i}` } 
-            index={ item.id }
-            onChange={ this.update }
-            //props
-            >
+          <Competitor            
+            key={ `competitor${i}` } index={ item.id } onChange={ this.update }>
             { console.log("id" + item.id) }
             <h5 className="card-title">{ item.competitor }</h5>
             <p className="card-text">id: { item.id }</p>
             <p className="card-text">score: { item.score }</p>
             <p className="card-text">date: { item.date }</p>
             <p className="card-text">time: { item.time }</p>
-            <p className="card-text">Competitors:</p>
+            <p className="card-text">Competitor's Details:</p>
             <p className="card-text">country: {item.competitorDetail.country}</p>
             <p className="card-text">birth: {item.competitorDetail.birth}</p>
           </Competitor>
